@@ -1,8 +1,12 @@
-package proyecto_progra3;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.proyecto_progra3;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import java.util.*;
 
 /**
  *
@@ -13,6 +17,7 @@ public class Interface_puzzle extends JFrame {
     private JButton[][] botones = new JButton[3][3];
     private int[][] tablero;
     private JPanel panelTablero;
+    private Audio reproductor = new Audio();
 
     public Interface_puzzle() {
         setTitle("8-Acertijo");
@@ -50,17 +55,17 @@ public class Interface_puzzle extends JFrame {
         btnTerminar.setBounds(110, 260, 170, 40);
 
         btnIniciar.addActionListener(new ActionListener() {
-
             private boolean iniciado = false;
 
             public void actionPerformed(ActionEvent e) {
-
                 tablero = generarTableroAleatorio();
 
                 if (!iniciado) {
                     inicializarTablero();
                     btnIniciar.setText("Nuevo Nivel");
                     iniciado = true;
+
+                    reproductor.reproducir("musica.wav", true);
                 } else {
                     actualizarTablero();
                 }
@@ -69,6 +74,7 @@ public class Interface_puzzle extends JFrame {
         
         
         btnTerminar.addActionListener(e -> {
+            reproductor.detener();
             dispose();
         });
 
@@ -121,6 +127,7 @@ public class Interface_puzzle extends JFrame {
 
     private void moverFicha(int fila, int col) {
         int filaVacia = -1, colVacia = -1;
+        reproductor.reproducir("musicabotton.wav", false);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (tablero[i][j] == 0) {
