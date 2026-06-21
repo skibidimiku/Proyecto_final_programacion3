@@ -4,7 +4,6 @@
  */
 package com.mycompany.proyecto_progra3;
 import javax.sound.sampled.*;
-import java.io.File;
 import java.io.IOException;
 
 /**
